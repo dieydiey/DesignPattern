@@ -97,7 +97,7 @@ Content-Type: application/json
 }
 
 ### 1.11 Consulter l'historique des transactions par téléphone
-GET {{walletHost}}/api/wallets/+221770000003/transactions
+GET {{walletHost}}/api/wallets/+221770000001/transactions
 Content-Type: application/json
 
 # ==========================================

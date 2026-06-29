@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
+import java.util.List;
+import com.example.badwallet_api.entity.Transaction;
 
 
 @RestController
@@ -96,5 +98,11 @@ public class WalletController {
     public ResponseEntity<String> payFactures(@RequestBody @Valid PayFacturesRequest request) {
         walletService.payFactures(request.getPhoneNumber(), request.getServiceName(), request.getFactureReferences());
         return ResponseEntity.ok("Factures spécifiques payées avec succès.");
+    }
+
+    // 1.11 Consulter l'historique des transactions par téléphone
+    @GetMapping("/{phoneNumber}/transactions")
+    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable String phoneNumber) {
+        return ResponseEntity.ok(walletService.getTransactionHistory(phoneNumber));
     }
 }
