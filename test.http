@@ -19,9 +19,20 @@ POST {{walletHost}}/api/wallets
 Content-Type: application/json
 
 {
-  "phoneNumber": "+221779998877",
-  "email": "testclient@gmail.com",
-  "balance": 25000,
+  "phoneNumber": "+221770000001",
+  "email": "sender@test.com",
+  "balance": 100000,
+  "currency": "XOF"
+}
+
+### 1.2b Créer le deuxième portefeuille
+POST {{walletHost}}/api/wallets
+Content-Type: application/json
+
+{
+  "phoneNumber": "+221770000002",
+  "email": "receiver@test.com",
+  "balance": 50000,
   "currency": "XOF"
 }
 

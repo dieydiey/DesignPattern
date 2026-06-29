@@ -1,6 +1,9 @@
 package com.example.badwallet_api.controller;
 
+import com.example.badwallet_api.dto.DepositRequest;
+import com.example.badwallet_api.dto.TransferRequest;
 import com.example.badwallet_api.dto.WalletDTO;
+import com.example.badwallet_api.dto.WithdrawRequest;
 import com.example.badwallet_api.entity.Wallet;
 import com.example.badwallet_api.Service.*;
 import jakarta.validation.Valid;
@@ -55,5 +58,26 @@ public class WalletController {
     @GetMapping("/{phoneNumber}/balance")
     public ResponseEntity<BigDecimal> getBalance(@PathVariable String phoneNumber) {
         return ResponseEntity.ok(walletService.getBalance(phoneNumber));
+    }
+
+        // 1.6 Dépôt
+    @PostMapping("/{id}/deposit")
+    public ResponseEntity<Wallet> deposit(@PathVariable Long id,
+                                          @RequestBody @Valid DepositRequest request) {
+        return ResponseEntity.ok(walletService.deposit(id, request.getAmount(), request.getPaymentMethod()));
+    }
+
+    // 1.7 Retrait
+    @PostMapping("/withdraw")
+    public ResponseEntity<String> withdraw(@RequestBody @Valid WithdrawRequest request) {
+        walletService.withdraw(request.getPhoneNumber(), request.getAmount());
+        return ResponseEntity.ok("Retrait effectué avec succès.");
+    }
+
+    // 1.8 Transfert
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(@RequestBody @Valid TransferRequest request) {
+        walletService.transfer(request.getSenderPhone(), request.getReceiverPhone(), request.getAmount());
+        return ResponseEntity.ok("Transfert effectué avec succès.");
     }
 }
