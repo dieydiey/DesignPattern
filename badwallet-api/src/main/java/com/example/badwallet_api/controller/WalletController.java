@@ -3,6 +3,8 @@ package com.example.badwallet_api.controller;
 import com.example.badwallet_api.dto.DepositRequest;
 import com.example.badwallet_api.dto.TransferRequest;
 import com.example.badwallet_api.dto.WalletDTO;
+import com.example.badwallet_api.dto.PayBillRequest;
+import com.example.badwallet_api.dto.PayFacturesRequest;
 import com.example.badwallet_api.dto.WithdrawRequest;
 import com.example.badwallet_api.entity.Wallet;
 import com.example.badwallet_api.Service.*;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
+
 
 @RestController
 @RequestMapping("/api/wallets")
@@ -79,5 +82,19 @@ public class WalletController {
     public ResponseEntity<String> transfer(@RequestBody @Valid TransferRequest request) {
         walletService.transfer(request.getSenderPhone(), request.getReceiverPhone(), request.getAmount());
         return ResponseEntity.ok("Transfert effectué avec succès.");
+    }
+
+        // 1.9 Payer une facture du mois en cours
+    @PostMapping("/pay")
+    public ResponseEntity<String> payBill(@RequestBody @Valid PayBillRequest request) {
+        walletService.payBill(request.getPhoneNumber(), request.getServiceName(), request.getAmount());
+        return ResponseEntity.ok("Facture payée avec succès.");
+    }
+
+    // 1.10 Payer des factures spécifiques
+    @PostMapping("/pay-factures")
+    public ResponseEntity<String> payFactures(@RequestBody @Valid PayFacturesRequest request) {
+        walletService.payFactures(request.getPhoneNumber(), request.getServiceName(), request.getFactureReferences());
+        return ResponseEntity.ok("Factures spécifiques payées avec succès.");
     }
 }

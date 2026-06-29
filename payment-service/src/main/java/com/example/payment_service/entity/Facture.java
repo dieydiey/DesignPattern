@@ -1,9 +1,7 @@
 package com.example.payment_service.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
